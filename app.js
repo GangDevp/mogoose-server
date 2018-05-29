@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-var commonRouters = require('./routes/common-routers');
+var commonRouters = require('./src/routes/common-routers');
 app.use('/mogo', commonRouters);
 
 // catch 404 and forward to error handler
