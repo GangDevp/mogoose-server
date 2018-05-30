@@ -1,6 +1,7 @@
 /**
  * 数据库连接公用
  */
+const Aspect = require('./../util/aspect');
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
@@ -11,5 +12,7 @@ db.connection.on("error", function (error) {
 });
 
 db.connection.on("open", function () {
+    Aspect.getAspect()
+    Aspect.setAspect()
     console.log("数据库连接成功!");
 });

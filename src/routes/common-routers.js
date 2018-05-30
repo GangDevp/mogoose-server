@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 let schemas = require("./../schema/common-schemas");
 
 for (let schema in schemas) {
@@ -12,7 +11,7 @@ for (let schema in schemas) {
      * 添加数据
      */
     router.get('/add' + schemaName, function (req, res, next) {
-        console.log(Schema.modelName)
+//        console.log(Schema.modelName)
         let param = req.query
         let schemaInstance = new Schema(param);
         schemaInstance.save(function (err) {
