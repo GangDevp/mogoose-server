@@ -14,14 +14,14 @@ let db = mongoose.connect(dbPath);
 let connectSuccessed = function () {
     aop.logger('db server start...');
 }.after(function () {
-    console.log('db server connected ！');
+    console.log('db server connected.');
 }).before(function () {
     console.log('db sever address：' + dbPath);
 });
 
 let connectFailed = function (error) {
     aop.logger('db connect failed, by ' + error);
-}.after(function () {
+}.before(function () {
     console.log('db server failed.');
 });
 
