@@ -1,7 +1,5 @@
-/**
- * 数据库连接公用
- */
-const aop = require('./../util/aspect');
+
+const aop = require('./../util/aop');
 const dbconfig = require('./../config/config');
 
 const mongoose = require('mongoose');
