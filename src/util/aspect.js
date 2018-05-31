@@ -9,27 +9,24 @@ const AOP = {
 
 
 Function.prototype.before = function (beforefn) {
-    var self = this;
+    let self = this;
     return function () {
-        AOP.logger('###前置通知开始');
+        AOP.logger('### before advice start');
         beforefn.apply(this, arguments);
-        AOP.logger('###前置通知结束');
+        AOP.logger('### before advice end');
         return self.apply(this, arguments);
     };
 };
 
 Function.prototype.after = function (afterfn) {
-    var self = this;
+    let self = this;
     return function () {
-        var ret = self.apply(this, arguments);
-        AOP.logger('###后置通知开始');
+        let ret = self.apply(this, arguments);
+        AOP.logger('### after advice start');
         afterfn.apply(this, arguments);
-        AOP.logger('###后置通知结束');
+        AOP.logger('### after advice start');
         return ret;
     };
 };
-
-
-
 
 exports['logger'] = AOP.logger;

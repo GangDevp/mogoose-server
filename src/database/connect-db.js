@@ -2,37 +2,33 @@
  * 数据库连接公用
  */
 const aop = require('./../util/aspect');
+const dbconfig = require('./../config/config');
+
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
-let db = mongoose.connect('mongodb://127.0.0.1/test');
 
-let dbConnectSuccessed = function () {
-    aop.logger('数据库服务开启中...');
-};
+let dbPath = dbconfig.dbConfig.dbPath;
+let db = mongoose.connect(dbPath);
 
-let dbConnectFailed = function (error) {
-    aop.logger('数据库服务开启中...');
-    aop.logger('数据库服务开启失败：' + error);
-};
-
-
-dbConnectSuccessed = dbConnectSuccessed.before(function () {
-    console.log('数据库连接地址：mongodb://127.0.0.1/test');
-}).after(function () {
-    console.log('数据连接成功！');
+let connectSuccessed = function () {
+    aop.logger('db server start...');
+}.after(function () {
+    console.log('db server connected ！');
+}).before(function () {
+    console.log('db sever address：' + dbPath);
 });
 
-dbConnectFailed = dbConnectFailed.before(function () {
-    console.log('数据库连接地址：mongodb://127.0.0.1/test');
-}).after(function () {
-    console.log('数据连接失败！');
+let connectFailed = function (error) {
+    aop.logger('db connect failed, by ' + error);
+}.after(function () {
+    console.log('db server failed.');
 });
 
 db.connection.on('error', function (error) {
-    dbConnectFailed(error);
+    connectFailed(error);
 });
 
 db.connection.on('open', function () {
-    dbConnectSuccessed();
+    connectSuccessed();
 });
